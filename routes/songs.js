@@ -105,4 +105,32 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+
+router.get("/getAllSongsByAlbum/:albumId", async (req, res) => {
+  try {
+    const { albumId } = req.params;
+    const filter = { album: albumId };
+    const songsByAlbum = await Song.find(filter);
+    res.status(200).send({ songs: songsByAlbum });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+router.get("/getAllSongsByArtist/:artistName", async (req, res) => {
+  try {
+    const { artistName } = req.params;
+    const filter = { artist: artistName };
+    const songsByArtist = await Song.find(filter);
+    res.status(200).send({ songs: songsByArtist });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+// ...
+
+
 module.exports = router;
